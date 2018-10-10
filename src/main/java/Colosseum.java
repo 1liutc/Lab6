@@ -18,6 +18,11 @@ public class Colosseum {
     static final int MAX_HIT_POINTS = 50;
 
     /**
+     * The minimum number of hit points we will allow a Pokemon to start with.
+     */
+    static final int MIN_HIT_POINTS = 1;
+
+    /**
      * The maximum number of rounds we will let the Pokemon battle.
      */
     static final int MAX_NUM_ROUNDS = 10;
@@ -102,8 +107,53 @@ public class Colosseum {
      * (Look, we can return objects too!)
      */
     public static Pokemon buildPokemon() {
-        Pokemon returnPokemon = null;
-        return returnPokemon;
+        Pokemon tempPokemon = new Pokemon();
+        String name;
+        int hitPoint;
+        int attack;
+        int defense;
+
+        while (true) {
+            System.out.println("Please name your Pokemon:");
+            name = myScan.next();
+            if (name != null) {
+                break;
+            }
+        }
+        System.out.println("How many hit points will it have?");
+        while (true) {
+            hitPoint = myScan.nextInt();
+            if (hitPoint <= MAX_HIT_POINTS && hitPoint >= MIN_HIT_POINTS) {
+                break;
+            } else {
+                System.out.println("Sorry. Hit points must be between 1 and 50: ");
+            }
+        }
+        System.out.println("Split fifty points between attack level and defense level: ");
+        System.out.println("Enter your attack level (1-49):");
+        while (true) {
+            attack = myScan.nextInt();
+            if (attack >= MIN_HIT_POINTS && attack <= MAX_HIT_POINTS - MIN_HIT_POINTS) {
+                break;
+            } else {
+                System.out.println("Sorry. The attack level must be between 1 and 49: ");
+            }
+        }
+        System.out.println("Enter your attack level (1-" + (MAX_HIT_POINTS - attack) + "):");
+        while (true) {
+            defense = myScan.nextInt();
+            if (attack >= MIN_HIT_POINTS && attack <= (MAX_HIT_POINTS - attack)) {
+                break;
+            } else {
+                System.out.println("Sorry. The defense level must be between 1 and " + (MAX_HIT_POINTS - attack) + ": ");
+            }
+        }
+        tempPokemon.setName(name);
+        tempPokemon.setHitPoints(hitPoint);
+        tempPokemon.setAttackLevel(attack);
+        tempPokemon.setDefenseLevel(defense);
+
+        return tempPokemon;
     }
 
     /**
